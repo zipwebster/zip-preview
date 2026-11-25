@@ -10,13 +10,15 @@ Decap uses editorial workflow: drafts and reviews are held in GitHub branches un
 
 ## Run locally
 
-Use Node 24 and pnpm 11.25.0. Run `pnpm install`, `pnpm dev`, and open the printed URL. `pnpm build` and `pnpm test` validate the publishable output. For local CMS editing, run `npx decap-server` in this directory in a second terminal; the local editor connects only on localhost.
+Use Node 24 and pnpm 11.25.0. Run `pnpm install`, `pnpm dev`, and open the printed URL. `pnpm build` and `pnpm test` validate the publishable output. For local CMS editing, run `pnpm cms` in this directory in a second terminal; the local editor connects only on localhost.
 
 ## Online sign-in: one-time connection still required
 
 Astro and Decap are free software. GitHub Pages cannot run the GitHub OAuth exchange. A separate authentication provider must be connected before online CMS editing works. The live editor displays a setup notice until configured; it does not pretend sign-in is available.
 
 Connect a free OAuth service (Netlify or a Cloudflare Worker), register the GitHub OAuth app with that service's callback URL, and keep its client secret only in the service's secret storage. Set repository Actions variable `CMS_AUTH_BASE_URL` to its HTTPS origin and optionally `CMS_AUTH_ENDPOINT` (defaults to `auth`). Re-run the deployment. Complete a real sign-in, draft, preview and publish check before inviting editors. No credentials are stored in this project.
+
+For Netlify's built-in provider, use callback `https://api.netlify.com/auth/done`, `CMS_AUTH_BASE_URL=https://api.netlify.com`, and `CMS_SITE_DOMAIN` set to the associated Netlify site's hostname. Install the GitHub provider under that Netlify project's Security → OAuth settings. The main ZIP website can stay on GitHub Pages.
 
 ## Publishing
 

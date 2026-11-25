@@ -26,6 +26,7 @@ jobs:
         env:
           CMS_AUTH_BASE_URL: ${{ vars.CMS_AUTH_BASE_URL }}
           CMS_AUTH_ENDPOINT: ${{ vars.CMS_AUTH_ENDPOINT }}
+          CMS_SITE_DOMAIN: ${{ vars.CMS_SITE_DOMAIN }}
       - run: pnpm test
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
