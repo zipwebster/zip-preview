@@ -2,6 +2,10 @@ backend:
   name: github
   repo: zipwebster/zip-preview
   branch: main
+  auth_scope: public_repo
+  site_domain: astounding-gaufre-afe4fb.netlify.app
+  base_url: https://api.netlify.com
+  auth_endpoint: auth
 local_backend: true
 publish_mode: editorial_workflow
 media_folder: public/uploads

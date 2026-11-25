@@ -9,6 +9,7 @@ const config={backend:{name:'github',repo:'zipwebster/zip-preview',branch:'main'
  {name:'news',label:'News',folder:'src/content/news',create:true,format:'json',extension:'json',slug:'{{slug}}',fields:[field('title','Title'),published,field('order','Display order','number',{value_type:'int',default:0}),field('category','Category'),field('image','Image','image'),field('imageAlt','Image description'),optional('url','Article URL')]}
 ]};
 const auth=process.env.CMS_AUTH_BASE_URL;
+config.backend.auth_scope='public_repo';
 if(process.env.CMS_SITE_DOMAIN)config.backend.site_domain=process.env.CMS_SITE_DOMAIN;
 if(auth){if(!auth.startsWith('https://'))throw Error('CMS_AUTH_BASE_URL must use HTTPS');config.backend.base_url=auth;config.backend.auth_endpoint=process.env.CMS_AUTH_ENDPOINT||'auth';}
 fs.writeFileSync('public/admin/config.yml',YAML.stringify(config));
