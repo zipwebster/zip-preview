@@ -12,13 +12,17 @@ Decap uses editorial workflow: drafts and reviews are held in GitHub branches un
 
 Use Node 24 and pnpm 11.25.0. Run `pnpm install`, `pnpm dev`, and open the printed URL. `pnpm build` and `pnpm test` validate the publishable output. For local CMS editing, run `pnpm cms` in this directory in a second terminal; the local editor connects only on localhost.
 
-## Online sign-in: one-time connection still required
+## Online sign-in
 
-Astro and Decap are free software. GitHub Pages cannot run the GitHub OAuth exchange. A separate authentication provider must be connected before online CMS editing works. The live editor displays a setup notice until configured; it does not pretend sign-in is available.
+Astro and Decap are free software. Netlify hosts the editor and its built-in GitHub OAuth provider; GitHub Pages hosts the public website. The associated Netlify project is `astounding-gaufre-afe4fb` in the `zipwebster` team, on the Free plan. The GitHub OAuth app is **ZIP content editor**, owned by `zipwebster`.
 
-Connect a free OAuth service (Netlify or a Cloudflare Worker), register the GitHub OAuth app with that service's callback URL, and keep its client secret only in the service's secret storage. Set repository Actions variable `CMS_AUTH_BASE_URL` to its HTTPS origin and optionally `CMS_AUTH_ENDPOINT` (defaults to `auth`). Re-run the deployment. Complete a real sign-in, draft, preview and publish check before inviting editors. No credentials are stored in this project.
+The GitHub Pages `/zip-preview/admin/` address forwards to `https://astounding-gaufre-afe4fb.netlify.app/admin/`. Netlify authentication requires the editor to use this registered origin. The small Netlify deployment loads its collection configuration from the public GitHub Pages config, so CMS structure updates follow the normal GitHub deployment. The source for that deployment is in `netlify-editor/`; deploy those files to the existing Netlify project when changing its bootstrap. Asset proxies allow existing programme images and future uploads to preview correctly.
+
+The client secret stays in Netlify's OAuth provider settings. GitHub Actions holds only the public configuration variables `CMS_AUTH_BASE_URL` and `CMS_SITE_DOMAIN`; no credentials are stored in this project. Decap requests `public_repo` access, which covers the signed-in account's public repositories rather than just this repository. Editors still need write access to `zipwebster/zip-preview`.
 
 For Netlify's built-in provider, use callback `https://api.netlify.com/auth/done`, `CMS_AUTH_BASE_URL=https://api.netlify.com`, and `CMS_SITE_DOMAIN` set to the associated Netlify site's hostname. Install the GitHub provider under that Netlify project's Security → OAuth settings. The main ZIP website can stay on GitHub Pages.
+
+If rebuilding this setup elsewhere, configure those two public Actions variables and re-run the deployment. If the authentication origin is unset, the editor shows a setup notice. If sign-in reports incorrect client credentials, replace the GitHub provider credentials in Netlify; never commit the secret or paste it into a chat.
 
 ## Publishing
 

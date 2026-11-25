@@ -1,0 +1,2 @@
+/zip-preview/assets/* https://zipwebster.github.io/zip-preview/assets/:splat 200
+/zip-preview/uploads/* https://zipwebster.github.io/zip-preview/uploads/:splat 200
