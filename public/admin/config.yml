@@ -1,0 +1,138 @@
+backend:
+  name: github
+  repo: zipwebster/zip-preview
+  branch: main
+local_backend: true
+publish_mode: editorial_workflow
+media_folder: public/uploads
+public_folder: /zip-preview/uploads
+site_url: https://zipwebster.github.io/zip-preview/
+display_url: https://zipwebster.github.io/zip-preview/
+collections:
+  - name: programmes
+    label: Programmes
+    folder: src/content/programmes
+    create: true
+    format: json
+    extension: json
+    slug: "{{slug}}"
+    fields:
+      - name: title
+        label: Programme name
+        widget: string
+      - &a1
+        name: published
+        label: Show on website
+        widget: boolean
+        default: false
+      - name: tileClass
+        label: Tile style
+        widget: hidden
+        default: programme
+      - name: logo
+        label: Logo
+        widget: image
+        required: false
+        default: ""
+      - name: logoAlt
+        label: Logo description
+        widget: string
+        required: false
+        default: ""
+      - name: website
+        label: Microsite URL (leave blank for overview)
+        widget: string
+        required: false
+        default: ""
+      - name: placeholder
+        label: Show placeholder notice
+        widget: boolean
+        default: true
+      - name: challenge
+        label: The challenge
+        widget: text
+        required: false
+        default: ""
+      - name: summary
+        label: Programme overview
+        widget: text
+        required: false
+        default: ""
+      - name: zipRole
+        label: ZIP’s specific role
+        widget: text
+        required: false
+        default: ""
+      - name: next
+        label: What comes next
+        widget: text
+        required: false
+        default: ""
+  - name: people
+    label: People
+    folder: src/content/people
+    create: true
+    format: json
+    extension: json
+    identifier_field: name
+    slug: "{{slug}}"
+    fields:
+      - name: name
+        label: Name
+        widget: string
+      - *a1
+      - name: featured
+        label: Featured profile
+        widget: boolean
+        default: false
+      - name: order
+        label: Display order
+        widget: number
+        value_type: int
+        default: 20
+      - name: role
+        label: Role
+        widget: string
+        required: false
+        default: ""
+      - name: bio
+        label: Biography
+        widget: text
+        required: false
+        default: ""
+      - name: portrait
+        label: Portrait
+        widget: image
+        required: false
+        default: ""
+  - name: news
+    label: News
+    folder: src/content/news
+    create: true
+    format: json
+    extension: json
+    slug: "{{slug}}"
+    fields:
+      - name: title
+        label: Title
+        widget: string
+      - *a1
+      - name: order
+        label: Display order
+        widget: number
+        value_type: int
+        default: 0
+      - name: category
+        label: Category
+        widget: string
+      - name: image
+        label: Image
+        widget: image
+      - name: imageAlt
+        label: Image description
+        widget: string
+      - name: url
+        label: Article URL
+        widget: string
+        required: false
+        default: ""

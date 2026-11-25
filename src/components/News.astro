@@ -1,0 +1,5 @@
+---
+import {getCollection} from 'astro:content';
+const news=(await getCollection('news')).filter(p=>p.data.published).sort((a,b)=>a.data.order-b.data.order);
+---
+{news.map(({data:n})=><article class="news-card"><div class="news-image"><img src={n.image} alt={n.imageAlt} loading="lazy" width="900" height="600"/></div><div class="news-copy"><span class="category">{n.category}</span><h3>{n.url?<a href={n.url}>{n.title}</a>:n.title}</h3></div></article>)}

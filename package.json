@@ -1,0 +1,18 @@
+{
+  "name": "zip-website",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node scripts/admin.mjs && astro dev --host 127.0.0.1",
+    "build": "node scripts/admin.mjs && astro build",
+    "preview": "astro preview --host 127.0.0.1",
+    "test": "node --test tests/*.test.mjs"
+  },
+  "dependencies": {
+    "astro": "7.4.13"
+  },
+  "devDependencies": {
+    "cheerio": "1.2.0",
+    "yaml": "2.8.1"
+  }
+}

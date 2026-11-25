@@ -1,0 +1,6 @@
+---
+import {getCollection} from 'astro:content';
+const {featured}=Astro.props;
+const people=(await getCollection('people')).filter(p=>p.data.published&&p.data.featured===featured).sort((a,b)=>a.data.order-b.data.order);
+---
+{people.map(({data:p})=><article class={featured?'person':'team-member'}>{p.portrait&&<div class="portrait"><img src={p.portrait} alt={p.name} loading="lazy" width="360" height="360"/></div>}<div class={featured?'person-copy':undefined}><h3>{p.name}</h3>{p.role&&<p class="role">{p.role}</p>}{p.bio&&<p>{p.bio}</p>}</div></article>)}

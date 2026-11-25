@@ -1,0 +1,14 @@
+---
+import {getCollection} from 'astro:content';
+const programmes=(await getCollection('programmes')).filter(p=>p.data.published).sort((a,b)=>a.data.title.localeCompare(b.data.title,'en'));
+const marks=import.meta.glob('./mark-*.html',{query:'?raw',import:'default',eager:true});
+const branded=new Set(['better-dying-fund','national-pain-institute','neet-ideas','j-starx-deeptech-bridge']);
+---
+{programmes.map(({id,data:p})=>{
+ const Tag=p.website?'a':'button';
+ return <article class={p.tileClass||'programme'} aria-label={p.title}>
+ <Tag class:list={['programme-link',{'programme-open':!p.website}]} href={p.website||undefined} target={p.website?'_blank':undefined} rel={p.website?'noopener':undefined} type={!p.website?'button':undefined} data-programme={!p.website?p.title:undefined} data-placeholder={String(p.placeholder)} data-overview={'overview-'+id} aria-haspopup={!p.website?'dialog':undefined} aria-controls={!p.website?'programme-overview':undefined} aria-label={(p.website?'Visit ':'Read programme overview: ')+p.title}>
+ <div class="programme-visual"><div class="mark">{p.logo?<img class={id==='hidden-entrepreneurs'?'hidden-logo':'programme-logo'} src={p.logo} alt={p.logoAlt||p.title}/>:branded.has(id)&&marks['./mark-'+id+'.html']?<Fragment set:html={marks['./mark-'+id+'.html']}/>:<span class="type-mark">{p.title}</span>}</div></div></Tag>
+ <template id={'overview-'+id}><div class="overview-columns"><section><h3>The challenge</h3><p>{p.challenge}</p></section><section><h3>Our approach</h3><p>{p.summary}</p></section></div><section><h3>ZIP’s role</h3><p>{p.zipRole}</p></section>{p.next&&<section><h3>What comes next</h3><p>{p.next}</p></section>}</template>
+ </article>;
+})}
