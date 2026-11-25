@@ -1,7 +1,7 @@
 {
   "name": "Luke",
   "published": true,
-  "featured": false,
+  "featured": true,
   "order": 2,
   "role": "",
   "bio": "",
